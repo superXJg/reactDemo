@@ -1,0 +1,241 @@
+
+@white: #fff;
+@black: #313131;
+
+/* 气泡主题 */
+.tooltip-theme-dark {
+    color: @white;
+    background-color: @black;
+}
+
+.tooltip-theme-light {
+    color: @black;
+    background-color: @white;
+    border: 1px solid @black;
+}
+
+/* 三角形主题 */
+.triangle-theme-dark {
+    border-top-color: @black;
+}
+
+.triangle-theme-light {
+    border-top-color: @black; /* 暂时跟dark一样 */
+}
+
+    /* 气泡位置 */
+
+    /*----上----*/
+.tooltip-placement-top {
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tooltip-placement-right {
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+.tooltip-placement-bottom {
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.tooltip-placement-left {
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+
+/* 三角形位置 */
+
+/*----上----*/
+.triangle-placement-top {
+    bottom: calc(100%);
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+/*----下----*/
+.triangle-placement-bottom {
+    top: calc(100%);
+    left: 50%;
+    transform: translate(-50%, 0) rotate(180deg);
+}
+/*----右----*/
+.triangle-placement-right {
+    left: calc(100%);
+    top: 50%;
+    transform: translate(0, -50%) rotate(90deg);
+}
+/*----左----*/
+.triangle-placement-left {
+    right: calc(100%);
+    top: 50%;
+    transform: translate(0, -50%) rotate(270deg);
+}
+
+  
+/* 匹配有tooltip属性的元素 */
+[tooltip] {
+    position: relative;
+    &[theme='light'] {
+        &::after {
+            .tooltip-theme-light;
+          }
+        
+          &::before {
+            .triangle-theme-light;
+          }
+    }
+
+    &[placement="right"] {
+
+        &::after {
+            .tooltip-placement-right;
+        }
+
+        &::before {
+            .triangle-placement-right;
+        }
+    }
+
+    &[placement="bottom"] {
+
+        &::after {
+            .tooltip-placement-bottom;
+        }
+
+        &::before {
+            .triangle-placement-bottom;
+        }
+    }
+
+    &[placement="left"] {
+
+        &::after {
+            .tooltip-placement-left;
+        }
+
+        &::before {
+            .triangle-placement-left;
+        }
+    }
+    
+    &:not([placement]),
+    &[placement=""] {
+
+        &::after {
+            .tooltip-placement-top;
+        }
+
+        &::before {
+            .triangle-placement-top;
+        }
+    }
+
+    
+
+    /* 气泡默认样式 */
+    &::after {
+        display: none;
+        content: attr(tooltip);
+        position: absolute;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 8px 15px;
+        max-width: 200px;
+        border-radius: 4px;
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        .tooltip-theme-dark;
+    }
+  
+    /* 三角形默认样式 */
+    &::before {
+        display: none;
+        content: '';
+        position: absolute;
+        border: 5px solid transparent;
+        z-index: 100;
+        .triangle-theme-dark;
+    }
+  
+    /* 鼠标移入该元素，显示气泡、三角形 */
+    &:hover {
+  
+      &::after {
+        display: block;
+      }
+  
+      &::before {
+        display: block;
+      }
+    }
+}
+
+@keyframes anime-top {
+    form {
+        opacity: .5;
+        bottom: 150%;
+    }
+}
+@keyframes anime-bottom {
+    from {
+        opacity: .5;
+        top: 150%;
+    }
+}
+@keyframes anime-left {
+    from {
+        opacity: .5;
+        right: 150%;
+    }
+}
+@keyframes anime-right {
+    from {
+        opacity: .5;
+        left: 150%;
+    }
+}
+:local(.box){
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 100px;
+    .left {
+        float: left;
+        width: 60px;
+    }
+    .right {
+        float: right;
+        width: 60px;
+    }
+    .top {
+        text-align: center;
+    }
+    .bottom {
+        clear: both;
+        text-align: center;
+    }
+    button{
+        outline: 0;
+        border: 0;
+        font-size: 14px;
+        padding: 5px 10px;
+    }
+}
+
+.sel{
+    width: 40px;
+    option {
+        width: 40px;
+    }
+}
+// @list: top,left,right,bottom;
+// .loop(@i) when (@i < length(@list)) {
+//     .hehe-(extract(@list, @i));
+//     .loop(@i+1);
+// }
+// .loop(0)
